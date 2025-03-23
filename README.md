@@ -66,7 +66,7 @@ Chat With Cat now supports answering Google Forms questions directly! Here's how
 4. If the question contains media content (images/videos), the extension will notify you that it cannot process the question.
 5. The answer will be automatically copied to your clipboard for easy pasting.
 
-   ## ⚠️ Document Focus Reminder
+## ⚠️ Document Focus Reminder
 
 If you encounter a "Document is not focused" reminder while using the extension, it means the browser window or tab is not currently active. To resolve this:
 
