@@ -29,7 +29,7 @@ Welcome to the **new and improved** Chat With Cat Chrome Extension! 🐱✨ This
 
 1. **Clone or download** this repository:
    ```bash
-   git clone https://github.com/Ns81000/Chat_With_Cat.git
+   git clone https://github.com/Ns81000/Chat_With_Cat-v2.0-.git
    ```
 2. **Get an API key** from one of the supported providers:
    - [Google AI Studio](https://makersuite.google.com/app/apikey) for Gemini
