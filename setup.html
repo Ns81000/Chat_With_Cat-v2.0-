@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Set Up Chat With Cat</title>
+  <style>
+    :root {
+      --primary: #4285F4;
+      --primary-dark: #3367d6;
+      --primary-light: #82b1ff;
+      --bg: #ffffff;
+      --bg-secondary: #f8f9fa;
+      --text: #202124;
+      --text-secondary: #5f6368;
+      --border: #dadce0;
+      --shadow: rgba(60, 64, 67, 0.15);
+      --card-shadow: 0 2px 10px rgba(60, 64, 67, 0.15);
+      --hover: rgba(66, 133, 244, 0.08);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --primary: #8ab4f8;
+        --primary-dark: #669df6;
+        --primary-light: #aecbfa;
+        --bg: #202124;
+        --bg-secondary: #292a2d;
+        --text: #e8eaed;
+        --text-secondary: #9aa0a6;
+        --border: #3c4043;
+        --shadow: rgba(0, 0, 0, 0.3);
+        --card-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        --hover: rgba(138, 180, 248, 0.12);
+      }
+    }
+    
+    body {
+      font-family: 'Google Sans', 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      max-width: 750px;
+      margin: 0 auto;
+      padding: 40px 20px;
+      line-height: 1.6;
+      background-color: var(--bg);
+      color: var(--text);
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    h1 {
+      color: var(--primary);
+      text-align: center;
+      font-weight: 500;
+      margin-bottom: 32px;
+      font-size: 32px;
+    }
+
+    .container {
+      background-color: var(--bg-secondary);
+      border-radius: 16px;
+      padding: 32px;
+      box-shadow: var(--card-shadow);
+    }
+
+    .step {
+      margin-bottom: 32px;
+      padding-bottom: 32px;
+      border-bottom: 1px solid var(--border);
+      animation: fadeIn 0.5s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .step:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+      margin-bottom: 0;
+    }
+
+    .step-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .step-number {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: var(--primary);
+      color: white;
+      width: 36px;
+      height: 36px;
+      text-align: center;
+      font-size: 18px;
+      border-radius: 50%;
+      margin-right: 16px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    h2 {
+      margin: 0;
+      font-weight: 500;
+      font-size: 22px;
+    }
+
+    .form-group {
+      margin: 24px 0;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    input, select {
+      width: 100%;
+      padding: 14px;
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      box-sizing: border-box;
+      background-color: var(--bg);
+      color: var(--text);
+      font-size: 16px;
+      transition: border 0.3s, box-shadow 0.3s;
+    }
+
+    input:focus, select:focus {
+      border-color: var(--primary);
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(66, 133, 244, 0.2);
+    }
+
+    button {
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      padding: 14px 24px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 500;
+      transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    button:hover {
+      background-color: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    button:active {
+      transform: translateY(0);
+      box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
+    }
+
+    .provider-setup {
+      margin: 24px 0;
+      padding: 24px;
+      background-color: var(--bg);
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s;
+    }
+
+    .provider-setup:hover {
+      transform: translateY(-2px);
+    }
+
+    .status {
+      margin-top: 16px;
+      padding: 16px;
+      border-radius: 8px;
+      font-weight: 500;
+      transition: all 0.3s;
+    }
+
+    .success {
+      background-color: rgba(46, 204, 113, 0.1);
+      color: #2ecc71;
+      border-left: 4px solid #2ecc71;
+    }
+
+    .error {
+      background-color: rgba(231, 76, 60, 0.1);
+      color: #e74c3c;
+      border-left: 4px solid #e74c3c;
+    }
+
+    .tip {
+      background-color: rgba(241, 196, 15, 0.1);
+      color: #f39c12;
+      padding: 14px;
+      border-radius: 8px;
+      margin: 16px 0;
+      font-size: 14px;
+      border-left: 4px solid #f39c12;
+    }
+
+    .model-link {
+      display: inline-flex;
+      align-items: center;
+      margin-top: 8px;
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    .model-link:hover {
+      color: var(--primary-dark);
+      text-decoration: underline;
+    }
+
+    .model-link::after {
+      content: ">";
+      margin-left: 5px;
+    }
+
+    .api-key-section.hidden {
+      display: none;
+    }
+
+    a {
+      color: var(--primary);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    a:hover {
+      color: var(--primary-dark);
+      text-decoration: underline;
+    }
+
+    /* Added section transitions */
+    .provider-setup {
+      opacity: 1;
+      transition: opacity 0.3s, transform 0.3s;
+    }
+
+    .provider-setup[style*="display: none"] {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+  </style>
+</head>
+<body>
+  <h1>Set Up Chat With Cat</h1>
+  <div class="container">
+    <div class="step">
+      <div class="step-header">
+        <div class="step-number">1</div>
+        <h2>Select Your AI Provider</h2>
+      </div>
+      <div class="form-group">
+        <label for="provider-select">AI Provider:</label>
+        <select id="provider-select" class="provider-select">
+          <option value="gemini">Google Gemini</option>
+          <option value="groq">GROQ</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-header">
+        <div class="step-number">2</div>
+        <h2>Configure API Access</h2>
+      </div>
+      <div id="gemini-setup" class="provider-setup">
+        <p>Get a free API key from Google's Gemini platform:</p>
+        <ol>
+          <li>Go to <a href="https://makersuite.google.com/app/apikey" target="_blank">https://makersuite.google.com/app/apikey</a></li>
+          <li>Sign in with your Google account</li>
+          <li>Click "Create API key" and copy the generated key</li>
+        </ol>
+        <a href="https://ai.google.dev/models/gemini" target="_blank" class="model-link">View available Gemini models</a>
+      </div>
+
+      <div id="groq-setup" class="provider-setup" style="display: none;">
+        <p>Get your GROQ API key:</p>
+        <ol>
+          <li>Go to <a href="https://console.groq.com/keys" target="_blank">GROQ Console</a></li>
+          <li>Sign in and create a new API key</li>
+          <li>Copy the generated API key</li>
+        </ol>
+        <a href="https://console.groq.com/docs/models" target="_blank" class="model-link">View available GROQ models</a>
+      </div>
+
+      <div class="form-group api-key-section">
+        <label for="api-key">API Key:</label>
+        <input type="password" id="api-key" placeholder="Paste your API key here">
+      </div>
+
+      <div class="form-group model-input-section">
+        <label for="model-input">Model Name:</label>
+        <input type="text" id="model-input" placeholder="Enter model name (e.g., gemini-1.5-flash, gemini-2.0-flash)">
+        <div class="tip">Use the links above to find available models for your chosen provider</div>
+      </div>
+
+      <button id="save-btn">Save Configuration</button>
+      <div id="status-message" class="status" style="display: none;"></div>
+    </div>
+    
+    <div class="step">
+      <div class="step-header">
+        <div class="step-number">3</div>
+        <h2>How to Use</h2>
+      </div>
+      <p>Now you're all set to use the Chat With Cat:</p>
+      <ol>
+        <li>Browse to any webpage</li>
+        <li>Select any text that you want to get information about</li>
+        <li>Right-click and select "Ask AI about: [text]"</li>
+        <li>View the AI response in a floating window</li>
+      </ol>
+    </div>
+  </div>
+  
+  <script src="js/setup.js"></script>
+</body>
+</html>
